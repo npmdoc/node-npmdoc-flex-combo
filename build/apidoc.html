@@ -108,68 +108,7 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.flex-combo.toString">
-            function <span class="apidocSignatureSpan">flex-combo.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-        <li>
-
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">flex-combo.</span>util</span>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.flex-combo.API">module flex-combo.API</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.flex-combo.API.API">
-            function <span class="apidocSignatureSpan">flex-combo.</span>API
-            <span class="apidocSignatureSpan">(priority, confFile)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.flex-combo.engine">module flex-combo.engine</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.flex-combo.engine.engine">
-            function <span class="apidocSignatureSpan">flex-combo.</span>engine
-            <span class="apidocSignatureSpan">(input_param, dir)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.flex-combo.koa">module flex-combo.koa</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.flex-combo.koa.koa">
-            function <span class="apidocSignatureSpan">flex-combo.</span>koa
-            <span class="apidocSignatureSpan">(ctx, param, cb)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.flex-combo.toString">module flex-combo.toString</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.flex-combo.toString.toString">
-            function <span class="apidocSignatureSpan">flex-combo.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
 
         </li>
 
@@ -466,7 +405,23 @@
     });
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  if (!isPass) {
+    if (e) {
+      if (e.code != -1) {
+        self.trace &#x26;&#x26; self.trace.error(absPath, info.field);
+      }
+    }
+    else {
+      self.trace &#x26;&#x26; self.trace.<span class="apidocCodeKeywordSpan">engine</span>(info.field, absPath);
+    }
+  }
+};
+
+if (isNotFirst) {
+  return function (content, callback) {
+    engine(
+...</pre></li>
     </ul>
 
 
@@ -561,340 +516,6 @@ fcInst.<span class="apidocCodeKeywordSpan">koa</span>(ctx.req, function (e, body
 
 
 
-    <h2>
-        <a href="#apidoc.element.flex-combo.toString" id="apidoc.element.flex-combo.toString">
-        function <span class="apidocSignatureSpan">flex-combo.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-const iconv  = DAC.iconv;
-
-module.exports = {
-/* 读取文件并返回Unicode编码的字符串，以便在Node.js环境下进行文本处理 */
-getUnicode: function (filePath) {
-  if (fsLib.existsSync(filePath)) {
-    let buff = fsLib.readFileSync(filePath);
-    return isUtf8(buff) ? buff.<span class="apidocCodeKeywordSpan">toString</span>() : iconv.decode(buff, &#x22;gbk&#x22;);
-  }
-  else {
-    return null;
-  }
-},
-
-getBuffer: function (buff, outputCharset) {
-...</pre></li>
-    </ul>
-
-
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.flex-combo.API" id="apidoc.module.flex-combo.API">module flex-combo.API</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.flex-combo.API.API" id="apidoc.element.flex-combo.API.API">
-        function <span class="apidocSignatureSpan">flex-combo.</span>API
-        <span class="apidocSignatureSpan">(priority, confFile)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">class FlexCombo {
-  constructor(priority, confFile) {
-    // URL分析结果
-    this.parseDetail = {};
-
-    // 动态注册引擎
-    this.engines = new Map();
-
-    // trace信息
-    this.trace = null;
-
-    // 配置相关
-    this.priority = priority; // 代码显示注入的配置项,优先级最高
-    this.confFile = confFile; // 配置文件地址
-
-    if (confFile) {
-      if (!fsLib.existsSync(confFile)) {
-        fsLib.outputJson(confFile, require(&#x22;./lib/param&#x22;), {encoding: &#x22;utf-8&#x22;}, function () {
-          fsLib.chmod(confFile, 0o777);
-        });
-      }
-
-      this.cacheDir = pathLib.join(pathLib.dirname(confFile), &#x22;../.cache&#x22;);
-    }
-    if (!this.cacheDir) {
-      this.cacheDir = pathLib.normalize(pathLib.join(process.cwd(), &#x22;.cache&#x22;));
-    }
-    this.cacheDir = pathLib.join(this.cacheDir, &#x22;flex-combo&#x22;);
-    if (!fsLib.existsSync(this.cacheDir)) {
-      fsLib.mkdirs(this.cacheDir, function (e, dir) {
-        dir &#x26;&#x26; fsLib.chmod(dir, 0o777);
-        fsLib.chmod(this.cacheDir, 0o777);
-      }.bind(this));
-    }
-  }
-
-  get param() {
-    let confJSON = {};
-    try {
-      if (this.confFile) {
-        confJSON = require(this.confFile);
-        delete require.cache[this.confFile];
-      }
-    }
-    catch (e) {
-      this.trace &#x26;&#x26; this.trace.error(&#x22;Can&#x27;t require config file!&#x22;, &#x22;IO&#x22;);
-      confJSON = {};
-    }
-
-    return merge.recursive(true, require(&#x22;./lib/param&#x22;), confJSON, this.priority, {hosts: confJSON.hosts || {}});
-  }
-
-  static addEngine(rule, engine, field) {
-    if (!Engines.has(engine)) {
-      Engines.set(engine, {
-        rule: rule,
-        field: field
-      });
-    }
-  }
-
-  addCustomEngine(rule, engine, field) {
-    if (!this.engines.has(engine)) {
-      this.engines.set(engine, {
-        rule: rule,
-        field: field
-      });
-    }
-  }
-
-  resetCustomEngine() {
-    this.engines.clear();
-    let tmp = [];
-
-    let engines = this.param.engine;
-    for (let regStr in engines) {
-      let filepath = engines[regStr].replace(/\.js$/, &#x27;&#x27;);
-      let mod      = pathLib.join(process.cwd(), filepath);
-      if (tmp.indexOf(mod) == -1 &#x26;&#x26; fsLib.existsSync(mod + &#x22;.js&#x22;)) {
-        tmp.push(mod);
-        this.addCustomEngine(regStr, require(mod), filepath);
-        delete require.cache[mod];
-      }
-    }
-  }
-
-  parse(origin) {
-    let _url    = origin.replace(/([^\?])\?[^\?].*$/, &#x22;$1&#x22;).replace(/[\?\,]{1,}$/, &#x27;&#x27;);
-    let result  = urlLib.parse(_url);
-    result.path = result.path.replace(/[\\|\/]{1,}/g, &#x27;/&#x27;);
-
-    this.parseDetail = {
-      url: origin,
-      href: result.protocol + &#x22;//&#x22; + result.host + result.path,
-      protocol: result.protocol,
-      host: result.hostname,
-      port: result.port || (result.protocol == &#x22;https:&#x22; ? 443 : 80),
-      path: result.path,
-      list: []
-    };
-
-    let url    = this.parseDetail.path;
-    let prefix = url.indexOf(this.param.servlet + &#x27;?&#x27;);
-
-    if (prefix != -1) {
-      let base              = (url.slice(0, prefix) + &#x27;/&#x27;).replace(/\/{1,}/g, &#x27;/&#x27;);
-      let file              = url.slice(prefix + this.param.servlet.length + 1);
-      let filelist          = file.split(this.param.seperator, 1000);
-      this.parseDetail.list = filelist.map(function (i) {
-        return urlLib.resolve(base, i);
-      });
-    }
-    else {
-      this.parseDetail.list = [url];
-    }
-  }
-
-  isText(_url) {
-    return /text|javascript|json/i.test(mime.lookup(_url));
-  }
-
-  convert(buff, _url) {
-    if (this.isText(_url)) {
-      let outputCharset = (this.param.charset || &#x22;utf-8&#x22;).toLowerCase();
-      if (this.param.urlBasedCharset &#x26;&#x26; _url &#x26;&#x26; this.param.urlBasedCharset[_url]) {
-        outputCharset = this.param.urlBasedCharset[_url];
-      }
-
-      return Helper.getBuffer(buff, outputCharset);
-    }
-    return buff;
-  }
-
-  getFilteredUrl(_url, filter) {
-    let regx, ori_url;
-
-    for (let k in filter) {
-      regx = new RegExp(k);
-      if (regx.test(_url)) {
-        ori_url = _url;
-        _url    = _url.replace(regx, filter[k]);
-        this.trace &#x26;&#x26; this.trace.filter(regx, ori_url, _url);
-      }
-    }
-    return _url;
-  }
-
-  getRealPath(_url) {
-    let map = this.param.urls;
-    // 根目录设置
-    if (!map[&#x27;/&#x27;]) {
-      map[&#x27;/&#x27;] = this.param.rootdir || &#x22;src&#x22;; ...</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.flex-combo.engine" id="apidoc.module.flex-combo.engine">module flex-combo.engine</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.flex-combo.engine.engine" id="apidoc.element.flex-combo.engine.engine">
-        function <span class="apidocSignatureSpan">flex-combo.</span>engine
-        <span class="apidocSignatureSpan">(input_param, dir)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">engine = function (input_param, dir) {
-  let through = require(&#x22;through2&#x22;);
-
-  let param = init_param(input_param);
-  let confFile = init_config(dir);
-
-  process
-    .removeAllListeners(pkg.name)
-    .on(pkg.name, function (data) {
-      trace(data, &#x22;error&#x22;);
-    });
-
-  return through.obj(function (file, enc, cb) {
-    let fcInst = new FlexCombo(param, confFile);
-
-    let self = this;
-
-    if (file.isNull()) {
-      self.emit(&#x22;error&#x22;, &#x22;isNull&#x22;);
-      cb(null, file);
-      return;
-    }
-
-    if (file.isStream()) {
-      self.emit(&#x22;error&#x22;, &#x22;Streaming not supported&#x22;);
-      cb(null, file);
-      return;
-    }
-
-    fcInst.stream(file.path, function (buff) {
-      if (buff) {
-        file.contents = buff;
-      }
-      self.push(file);
-      cb();
-    });
-  });
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.flex-combo.koa" id="apidoc.module.flex-combo.koa">module flex-combo.koa</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.flex-combo.koa.koa" id="apidoc.element.flex-combo.koa.koa">
-        function <span class="apidocSignatureSpan">flex-combo.</span>koa
-        <span class="apidocSignatureSpan">(ctx, param, cb)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">koa = function (ctx, param, cb) {
-  let fcInst = new FlexCombo(param);
-  fcInst.koa(ctx.req, function (e, body, header) {
-    if (e) {
-      cb(e);
-    }
-    else {
-      ctx.set(header);
-      cb(null, body);
-    }
-  });
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-    console.log(e);
-  }
-}
-};
-
-module.exports.koa = function (ctx, param, cb) {
-let fcInst = new FlexCombo(param);
-fcInst.<span class="apidocCodeKeywordSpan">koa</span>(ctx.req, function (e, body, header) {
-  if (e) {
-    cb(e);
-  }
-  else {
-    ctx.set(header);
-    cb(null, body);
-  }
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.flex-combo.toString" id="apidoc.module.flex-combo.toString">module flex-combo.toString</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.flex-combo.toString.toString" id="apidoc.element.flex-combo.toString.toString">
-        function <span class="apidocSignatureSpan">flex-combo.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-const iconv  = DAC.iconv;
-
-module.exports = {
-/* 读取文件并返回Unicode编码的字符串，以便在Node.js环境下进行文本处理 */
-getUnicode: function (filePath) {
-  if (fsLib.existsSync(filePath)) {
-    let buff = fsLib.readFileSync(filePath);
-    return isUtf8(buff) ? buff.<span class="apidocCodeKeywordSpan">toString</span>() : iconv.decode(buff, &#x22;gbk&#x22;);
-  }
-  else {
-    return null;
-  }
-},
-
-getBuffer: function (buff, outputCharset) {
-...</pre></li>
-    </ul>
-
 
 </div>
 
@@ -912,7 +533,24 @@ getBuffer: function (buff, outputCharset) {
     <li>description and source-code<pre class="apidocCodePre">MD5 = function (str) {
   return crypto.createHash(&#x22;md5&#x22;).update(str).digest(&#x22;hex&#x22;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  }
+  let _path = pathLib.normalize(pathLib.join(repPath, revPath));
+  return pathLib.isAbsolute(_path) ? _path : pathLib.join(process.cwd(), _path);
+}
+
+getCacheFilePath(_url) {
+  if (this.cacheDir) {
+    return pathLib.join(this.cacheDir, Helper.<span class="apidocCodeKeywordSpan">MD5</span>(pathLib.join(this.parseDetail.host,
+_url)));
+  }
+  else {
+    return &#x27;&#x27;;
+  }
+}
+
+cacheFile(absPath, buff) {
+...</pre></li>
     </ul>
 
 
@@ -937,7 +575,22 @@ getBuffer: function (buff, outputCharset) {
     return iconv.encode(iconv.decode(buff, selfCharset), outputCharset);
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+convert(buff, _url) {
+  if (this.isText(_url)) {
+    let outputCharset = (this.param.charset || &#x22;utf-8&#x22;).toLowerCase();
+    if (this.param.urlBasedCharset &#x26;&#x26; _url &#x26;&#x26; this.param.urlBasedCharset[_url]) {
+      outputCharset = this.param.urlBasedCharset[_url];
+    }
+
+    return Helper.<span class="apidocCodeKeywordSpan">getBuffer</span>(buff, outputCharset);
+  }
+  return buff;
+}
+
+getFilteredUrl(_url, filter) {
+  let regx, ori_url;
+...</pre></li>
     </ul>
 
 

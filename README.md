@@ -1,6 +1,6 @@
 # npmdoc-flex-combo
 
-#### api documentation for  [flex-combo (v1.1.6)](https://github.com/wayfind/flex-combo#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-flex-combo.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-flex-combo) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-flex-combo.svg)](https://travis-ci.org/npmdoc/node-npmdoc-flex-combo)
+#### basic api documentation for  [flex-combo (v1.1.6)](https://github.com/wayfind/flex-combo#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-flex-combo.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-flex-combo) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-flex-combo.svg)](https://travis-ci.org/npmdoc/node-npmdoc-flex-combo)
 
 #### The Assets Handling Middleware for web front-end developer, which support combo format(eg. yahoo combo).
 

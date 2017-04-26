@@ -1,6 +1,6 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
-    "description": "#### api documentation for  [flex-combo (v1.1.6)](https://github.com/wayfind/flex-combo#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-flex-combo.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-flex-combo) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-flex-combo.svg)](https://travis-ci.org/npmdoc/node-npmdoc-flex-combo)",
+    "description": "#### basic api documentation for  [flex-combo (v1.1.6)](https://github.com/wayfind/flex-combo#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-flex-combo.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-flex-combo) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-flex-combo.svg)](https://travis-ci.org/npmdoc/node-npmdoc-flex-combo)",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "flex-combo": "*",
@@ -35,5 +35,5 @@
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
-    "version": "0.0.2"
+    "version": "2017.4.26"
 }
